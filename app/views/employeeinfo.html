@@ -1,0 +1,26 @@
+<div ng-show="currEmp != null" class="container">
+	<p><b>Hello {{currEmp.name}}</b></p>
+	<p>Employee Id: {{currEmp.id}}</p>
+	<p>Total leaves available for current year: {{currEmp.leaves_available}}</p>
+	<p>Leaves taken: {{currEmp.leaves_taken}}</p>
+	<p>Leaves remaining for current year: {{currEmp.leaves_available-currEmp.leaves_taken}}</p>
+	<div>
+		Apply leaves:<br/>
+		<form name="leaveForm" ng-submit="applyLeaves()">
+			From: <input type="date" ng-model="leaveFrom"/>
+			To: <input type="date" ng-model="leaveTo"/>
+			<button type="submit">Apply</button><br/>
+
+			<span ng-show="dateRequired">
+				 Date required!
+			</span>
+			<span ng-show="dateInvalid">
+				 Invalid period selected!
+			</span>
+
+			<span ng-show="leaveApplied">
+				 Leaves for {{leaveDays}} day(s) applied!
+			</span>
+		</form>
+	</div>
+</div>

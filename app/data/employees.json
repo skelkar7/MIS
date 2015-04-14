@@ -1,0 +1,26 @@
+[
+	{
+		"username": "s.kelkar",
+		"password": "ssk",
+		"name": "Sojjwal Kelkar",
+		"id": 35,
+		"leavesAvailable": 21,
+		"leavesTaken": 14	
+	},
+	{
+		"username": "n.wani",
+		"password": "nwi",
+		"name": "Nilesh Wani",
+		"id": 3,
+		"leavesAvailable": 21,
+		"leavesTaken": 0	
+	},	
+	{
+		"username": "p.bohara",
+		"password": "pkj",
+		"name": "Pankaj Bohara",
+		"id": 6,
+		"leavesAvailable": 20,
+		"leavesTaken": 2	
+	}
+]
