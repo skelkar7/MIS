@@ -1,26 +1,28 @@
 'use strict';
 
 /*
-	helper service to communicate between two controllers.
+  helper service to communicate between two controllers.
 */
 angular.module('myMisAppApp')
-	.service('LoginService', function($rootScope) {
-		var sharedService = {};
+  .service('LoginService', function($rootScope) {
+    var sharedService = {};
 
-		sharedService.employee = null;
+    sharedService.employee = null;
 
-		sharedService.broadcast = function(emp) {
-			this.employee = emp;
-			$rootScope.$broadcast('loginEvent');
-		};
+    sharedService.broadcast = function(emp) {
+      this.employee = emp;
+      $rootScope.$broadcast('loginEvent');
+    };
 
-		sharedService.getCurrEmployee = function() {
-			return this.employee;
-		};
+    sharedService.getCurrEmployee = function() {
+      return this.employee;
+    };
 
-		sharedService.setCurrEmployee = function(emp) {
-			this.employee = emp;
-		};
+    sharedService.setCurrEmployee = function(emp) {
+      this.employee = emp;
+    };
 
-		return sharedService;
-	});
+    sharedService.stub = "scout";
+    
+    return sharedService;
+  });
