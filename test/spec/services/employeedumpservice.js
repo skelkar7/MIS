@@ -6,13 +6,18 @@ describe('Service: employeeDumpService', function () {
   beforeEach(module('myMisAppApp'));
 
   // instantiate service
-  var employeeDumpService;
-  beforeEach(inject(function (_employeeDumpService_) {
-    employeeDumpService = _employeeDumpService_;
+  var employeeDumpService, http;
+  
+  beforeEach(inject(function (EmployeeDumpService, $http) {
+    employeeDumpService = EmployeeDumpService;
+    http = $http;
+    
+    spyOn(http, 'get').and.returnValue(101);
+    
   }));
-
-  it('should do something', function () {
-    expect(!!employeeDumpService).toBe(true);
+ 
+  it('getEmployeeData should returned the mocked result', function() {
+    var result = employeeDumpService.getEmployeeData();
+    expect(result).toEqual(101);
   });
-
 });
