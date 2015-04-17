@@ -1,6 +1,6 @@
 'use strict';
 
-describe('Service: service', function () {
+describe('Service: Loginservice', function () {
 
   // load the service's module
   beforeEach(module('myMisAppApp'));

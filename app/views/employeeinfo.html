@@ -6,7 +6,7 @@
 	<p>Leaves remaining for current year: {{currEmp.leavesAvailable - currEmp.leavesTaken}}</p>
 	<div>
 		Apply leaves:<br/>
-		<form name="leaveForm" ng-submit="applyLeaves()">
+		<form name="leaveForm" ng-submit="applyLeaves(leaveFrom, leaveTo)">
 			From: <input type="date" ng-model="leaveFrom"/>
 			To: <input type="date" ng-model="leaveTo"/>
 			<button type="submit">Apply</button><br/>
