@@ -5,22 +5,17 @@
 */
 angular.module('myMisAppApp')
   .service('LoginService', function($rootScope) {
-    var sharedService = {};
 
-    sharedService.employee = null;
+    this.employee = null;
 
-    sharedService.broadcast = function(emp) {
+    this.broadcast = function(emp) {
       this.employee = emp;
       $rootScope.$broadcast('loginEvent');
     };
 
-    sharedService.getCurrEmployee = function() {
+    this.getCurrEmployee = function() {
       return this.employee;
     };
-
-    sharedService.setCurrEmployee = function(emp) {
-      this.employee = emp;
-    };
     
-    return sharedService;
+    return this;
   });

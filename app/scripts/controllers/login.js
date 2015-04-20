@@ -25,16 +25,18 @@ angular.module('myMisAppApp')
     $scope.invalidLogin = false;
 
     $scope.login = function(username, password) {
-      LoginService.setCurrEmployee(null);
+      var currEmp = null;
+    
       angular.forEach($scope.employees, function(employee) {
         if(employee.username === username && employee.password === password)
         {
-          LoginService.broadcast(employee);
+          currEmp = employee;
           $scope.showLoginWindow = false;
           $scope.invalidLogin = false;
-        }
+        }        
       });
 
+      LoginService.broadcast(currEmp);
       if(LoginService.getCurrEmployee() === null)
       {
         $scope.invalidLogin = true;

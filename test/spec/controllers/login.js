@@ -9,7 +9,7 @@
  */
 
 describe('Controller: LoginCtrl', function () {
-  var fakeEmp, loginCtrl, scope, rootScope, empDumpService;
+  var fakeEmp, loginCtrl, scope, rootScope, empDumpService, loginService;
   var deferred, promise, resolvedValue;
 
   fakeEmp = [{
@@ -20,9 +20,10 @@ describe('Controller: LoginCtrl', function () {
   beforeEach(module('myMisAppApp'));
   
   beforeEach(function() {
-    inject(function($controller, $rootScope, $q, EmployeeDumpService) {
+    inject(function($controller, $rootScope, $q, EmployeeDumpService, LoginService) {
       rootScope = $rootScope;
       empDumpService = EmployeeDumpService;
+      loginService = LoginService;
       
       //$http's get method returns a promise. $q is some library to deal with promises. 
       deferred = $q.defer();
@@ -87,4 +88,45 @@ describe('Controller: LoginCtrl', function () {
     expect(resolvedValue).toBeDefined();
     
   }));  
+  
+
+  describe('Controller: LoginCtrl: Login process', function() {
+  
+    var loginService;
+    
+    beforeEach(function() {
+      inject(function(LoginService) {
+        loginService = LoginService;
+        
+        spyOn(loginService, 'broadcast').and.callThrough();
+
+        scope.employees = fakeEmp;
+      });    
+    });
+    
+    it('should not login with invalid value', function() {
+      scope.login(null, null);
+    
+      expect(loginService.broadcast).toHaveBeenCalledWith(null);
+      
+      expect(scope.invalidLogin).toBe(true);      
+    });
+    
+    it('should login with valid value', function() {
+      scope.login('uu', 'pp');
+    
+      expect(loginService.broadcast).toHaveBeenCalledWith(fakeEmp[0]);
+      
+      expect(scope.invalidLogin).toBe(false);      
+    });
+    
+    it('should logout', function() {
+      scope.logout();
+      
+      expect(loginService.broadcast).toHaveBeenCalledWith(null);
+      
+      expect(scope.showLoginWindow).toBe(true);
+    });
+  
+  });
 });
