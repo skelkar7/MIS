@@ -19,6 +19,6 @@ git diff
 
 git diff --cached
 
-git commit -m <version name>
+git commit -m <<version name>>
 
 git push
