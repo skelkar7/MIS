@@ -7,6 +7,22 @@ module.exports = function(config) {
   'use strict';
 
   config.set({
+  
+    // For testing directives with html template, we need a preprocessor that turns HTML templates into JavaScript strings and registers them with Angular's $templateCache.
+    // So Angular can access the templates without having to make seperate HTTP requests.
+    // http://daginge.com/technology/2013/12/14/testing-angular-templates-with-jasmine-and-karma/
+    // For yeoman scaffolded apps, follow yeoman instruction at: http://stackoverflow.com/questions/15214760/unit-testing-angularjs-directive-with-templateurl
+    preprocessors: {
+      'app/views/*.html': ['ng-html2js']
+    },
+    
+    //setting this option will create only a single module that contains templates
+    //from all the files, so you can load them all with module('templates')
+    ngHtml2JsPreprocessor: {
+      stripPrefix: 'app/',
+      moduleName: 'templates'
+    },
+    
     // enable / disable watching file and executing tests whenever any file changes
     autoWatch: true,
 
@@ -32,7 +48,8 @@ module.exports = function(config) {
       // endbower
       'app/scripts/**/*.js',
       'test/mock/**/*.js',
-      'test/spec/**/*.js'
+      'test/spec/**/*.js',
+      'app/views/*.html'
     ],
 
     // list of files / patterns to exclude
@@ -57,7 +74,8 @@ module.exports = function(config) {
     // Which plugins to enable
     plugins: [
       'karma-phantomjs-launcher',
-      'karma-jasmine'
+      'karma-jasmine',
+      'karma-ng-html2js-preprocessor'
     ],
 
     // Continuous Integration mode

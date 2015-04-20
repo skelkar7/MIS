@@ -10,7 +10,7 @@ angular.module('myMisAppApp')
   .directive('myLoginBox', function () {
     return {
       templateUrl: 'views/login.html',
-      restrict: 'E',
-      controller: 'LoginCtrl'
+      //controller: 'LoginCtrl'
+      restrict: 'E'
     };
   });
