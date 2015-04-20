@@ -10,3 +10,15 @@ Run `grunt` for building and `grunt serve` for preview.
 ## Testing
 
 Running `grunt test` will run the unit tests with karma.
+
+## Git commands
+
+git add .
+
+git diff
+
+git diff --cached
+
+git commit -m <version name>
+
+git push
