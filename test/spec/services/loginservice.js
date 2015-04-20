@@ -13,7 +13,7 @@ describe('Service: Loginservice', function () {
 
     //create a mock employee for testing    
     fakeEmp = {
-      name: "Robb Stark"
+      name: 'Robb Stark'
     };
 
     //spyOn acts like a watcher on any function of object we are calling   
@@ -26,7 +26,7 @@ describe('Service: Loginservice', function () {
   }));
 
 
-  it("tracks that the spy was called", function() {
+  it('tracks that the spy was called', function() {
     expect(service.setCurrEmployee).toHaveBeenCalled();
   });
 
@@ -39,6 +39,6 @@ describe('Service: Loginservice', function () {
   });
   
   it('check fetched emp', function () {
-    expect(fetchedEmp).toEqual({name: "Robb Stark"});
+    expect(fetchedEmp).toEqual({name: 'Robb Stark'});
   });
 });

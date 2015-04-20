@@ -21,8 +21,6 @@ angular.module('myMisAppApp')
     sharedService.setCurrEmployee = function(emp) {
       this.employee = emp;
     };
-
-    sharedService.stub = "scout";
     
     return sharedService;
   });

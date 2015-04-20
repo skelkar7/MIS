@@ -13,7 +13,7 @@ angular.module('myMisAppApp')
   .service('EmployeeDumpService', function($http) {
     return {
       getEmployeeData: function() {
-        return $http.get('data/employees.json');
+        return $http.get('data/employees.json'); //$http.get() returns a promise.
       }
     };
   });

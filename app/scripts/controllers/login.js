@@ -12,9 +12,10 @@ angular.module('myMisAppApp')
 
     $scope.employees = null;
     
+    //diff between $http.success and $http.get: http://stackoverflow.com/questions/27999899/angularjs-http-get-difference-between-then-and-success-callback
     $scope.loadEmployees = function() {
-      EmployeeDumpService.getEmployeeData().success(function(data) {
-        $scope.employees = data;
+      EmployeeDumpService.getEmployeeData().then(function(response) {
+        $scope.employees = response.data;
       });
     };
     
