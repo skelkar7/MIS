@@ -2,40 +2,64 @@
 
 describe('Directive: myLoginBox', function () {
 
-  // load the directive's module
-  beforeEach(module('myMisAppApp'));
-
-  var element,
-    scope;
-
-  describe('template', function() {
+  var element, scope;
+  var compile, template;
   
-    var compile, scope, httpBackend;
-  
-    beforeEach(module('templates'));
+  // load the directive's modules    
+  // 'templates' module contains all preprocessed templates, as configured in karma.conf.js
+  // $controllerProvider.register is used to create a mock controller for testing, to avoid dealing with $http dependencies of the -actual LoginCtrl
+  // Useful link: http://www.powdertothepeople.tv/2014/08/28/Mocking-Controller-Instantiation-In-AngularJS-Unit-Test/
+  // another: http://www.benlesh.com/2013/06/angular-js-unit-testing-directives.html
+  beforeEach(function() {
+    module('templates');
+
+    module('myMisAppApp', function($controllerProvider) {
+
+      $controllerProvider.register('LoginCtrl', function($scope) {
+        $scope.showLoginWindow = false;
+        $scope.invalidLogin = false;
+        $scope.scouttty = 'lala';
+        $scope.login = function(uname, pass) {};
+
+        $scope.loadEmployees = function() {};        
+      });
+    });
+  });
+        
+  beforeEach(inject(function ($compile, $rootScope) {
+    //create a scope (you could just use $rootScope, I suppose)
+    scope = $rootScope.$new();
+    compile = $compile;
     
-    beforeEach(inject(function ($compile, $rootScope) {
-      scope = $rootScope.$new();
-      compile = $compile;
-    }));
+    //get the jqLite or jQuery element
+    element = angular.element('<my-login-box></my-login-box>');
 
-    it('should make hidden element visible', inject(function () { 
+    // Following line can be broken into two steps:
+    // compiled = compile(element); // compile the element into a function to process the view
+    // template = compiled(scope); // run the compiled view against the scope we created
+    template = compile(element)(scope);
+    
+    // to update your view and model.
+    scope.$digest();
+  }));
+  
 
-      element = angular.element('<my-login-box></my-login-box>');
-      
-      var template = compile(element)(scope);
-      
-      //element = $compile(element)(scope);
-      //expect(element.text()).toBe('this is the myLoginBox directive');
-      
-      scope.showLoginWindow = true;
-      scope.text = "scouty";
-      
-      scope.$digest();
-      
-      expect(template.html()).toContain("scouty");
-    }));
+  it('should show or hidden elements based on visibility', inject(function () { 
+
+    scope.showLoginWindow = false;
+    scope.$digest();
+
+    //Testing ng-show http://stackoverflow.com/a/19292677
+    expect(element.find('form').hasClass('ng-hide')).toBe(true);
+    expect(element.find('button').hasClass('ng-hide')).toBe(false);    
+
+
+    scope.showLoginWindow = true;
+    scope.$digest();
+
+    expect(element.find('form').hasClass('ng-hide')).toBe(false);
+    expect(element.find('button').hasClass('ng-hide')).toBe(true);    
+  }));
   
   
-  });  
 });
