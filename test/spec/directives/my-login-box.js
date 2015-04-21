@@ -18,7 +18,6 @@ describe('Directive: myLoginBox', function () {
       $controllerProvider.register('LoginCtrl', function($scope) {
         $scope.showLoginWindow = false;
         $scope.invalidLogin = false;
-        $scope.scouttty = 'lala';
         $scope.login = function(uname, pass) {};
 
         $scope.loadEmployees = function() {};        
