@@ -1,20 +1,39 @@
 'use strict';
 
 describe('Directive: myEmployeeInfoBox', function () {
-
+  var element, compile, scope, currEmp;
+    
+  currEmp = {
+    name: 'scout'
+  };
+    
   // load the directive's module
-  beforeEach(module('myMisAppApp'));
+  beforeEach(function() {
+    module('templates');    
+    module('myMisAppApp', function($controllerProvider) {
+      
+      $controllerProvider.register('EmployeedetailsCtrl', function($scope) {
+        $scope.currEmp = currEmp;
+        $scope.applyLeaves = function(from, to) {}
+      });
+    });
+  });
+  
 
-  var element,
-    scope;
 
-  beforeEach(inject(function ($rootScope) {
+  beforeEach(inject(function ($rootScope, $compile) {
     scope = $rootScope.$new();
+    compile = $compile;
+    element = angular.element('<my-employee-info-box></my-employee-info-box>');
+    
   }));
 
-  it('should make hidden element visible', inject(function ($compile) {
-    element = angular.element('<my-employee-info-box></my-employee-info-box>');
-    element = $compile(element)(scope);
-    expect(element.text()).toBe('this is the myEmployeeInfoBox directive');
+  it('should display correct employee name', inject(function ($compile) {
+    
+    element = compile(element)(scope);    
+    scope.$digest();
+    
+    expect(element.find('b').text()).toContain('scout');
   }));
+  
 });
