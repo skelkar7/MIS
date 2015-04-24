@@ -8,44 +8,48 @@
  * Controller of the myMisAppApp
  */
 angular.module('myMisAppApp')
-  .controller('LoginCtrl', function ($scope, EmployeeDumpService, LoginService) {
+  .controller('LoginCtrl', function (EmployeeDumpService, LoginService) {
 
-    $scope.employees = null;
+    var vm = this;
+    vm.employees = null;
     
     //diff between $http.success and $http.get: http://stackoverflow.com/questions/27999899/angularjs-http-get-difference-between-then-and-success-callback
-    $scope.loadEmployees = function() {
+    vm.loadEmployees = function() {
       EmployeeDumpService.getEmployeeData().then(function(response) {
-        $scope.employees = response.data;
+        vm.employees = response.data;
       });
     };
     
-    $scope.loadEmployees();
+    vm.loadEmployees();
     
-    $scope.showLoginWindow = true;
-    $scope.invalidLogin = false;
+    vm.showLoginWindow = true;
+    vm.invalidLogin = false;
+    
+    vm.login = function(username, password) {
 
-    $scope.login = function(username, password) {
       var currEmp = null;
     
-      angular.forEach($scope.employees, function(employee) {
+      angular.forEach(vm.employees, function(employee) {
         if(employee.username === username && employee.password === password)
         {
           currEmp = employee;
-          $scope.showLoginWindow = false;
-          $scope.invalidLogin = false;
+          vm.showLoginWindow = false;
+          vm.invalidLogin = false;
         }        
       });
 
       LoginService.broadcast(currEmp);
       if(LoginService.getCurrEmployee() === null)
       {
-        $scope.invalidLogin = true;
+        vm.invalidLogin = true;
       }
-      $scope.username = $scope.password = null;
+      vm.username = vm.password = null;
     };
 
-    $scope.logout = function() {
+    vm.logout = function() {
       LoginService.broadcast(null);
-      $scope.showLoginWindow = true;
+      vm.showLoginWindow = true;
     };
+    
+    return vm;
   });

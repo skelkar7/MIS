@@ -1,9 +1,9 @@
 <p>MIS Login</p>
-<form ng-show="showLoginWindow" ng-submit="login(username, password)">
-	<p>Username: <input type="text" ng-model="username"/></p>
-	<p>Password: <input type="password" ng-model="password"/></p>
+<form ng-show="loginCtrl.showLoginWindow" ng-submit="loginCtrl.login(loginCtrl.username, loginCtrl.password)">
+	<p>Username: <input type="text" ng-model="loginCtrl.username"/></p>
+	<p>Password: <input type="password" ng-model="loginCtrl.password"/></p>
 	<button type="submit">Submit</button>
-	<span ng-show="invalidLogin">Invalid username or password!</span>
+	<span ng-show="loginCtrl.invalidLogin">Invalid username or password!</span>
 </form>
 
-<button ng-show="!showLoginWindow" ng-click="logout()">Logout</button>
+<button ng-show="!loginCtrl.showLoginWindow" ng-click="loginCtrl.logout()">Logout</button>

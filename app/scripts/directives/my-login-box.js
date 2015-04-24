@@ -11,6 +11,7 @@ angular.module('myMisAppApp')
     return {
       templateUrl: 'views/login.html',
       controller: 'LoginCtrl',
+      controllerAs: 'loginCtrl', 
       restrict: 'E'
     };
   });
